@@ -22,4 +22,5 @@ resource "aws_instance" "proyecto" {
   tags = {
     Name = "proyecto01"
   }
+}
   
