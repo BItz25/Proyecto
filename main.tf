@@ -18,7 +18,7 @@ resource "aws_instance" "proyecto" {
   ami           = "ami-830c94e3"
   instance_type = "t2.micro"
   key_names= "josue"
-  security_group = ["josue-proyecto","default"]
+  security_groups= ["josue-proyecto","default"]
 
   tags = {
     Name = "proyecto01"
