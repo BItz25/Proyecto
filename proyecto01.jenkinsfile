@@ -43,12 +43,12 @@ pipeline {
         }
         stage('Change inventory content') {
             steps{
-                sh "echo $PUBLIC_IP_EC2 > inventory.hosts"
+                sh "echo $PUBLIC_IP_EC2 > josue-inventory.hosts"
             }
         }     
         stage('Wait 5 minutes') {
             steps {
-                sleep time:5, unit: 'MINUTES'
+                sleep time:2, unit: 'MINUTES'
             }
         }
         stage('instalandoDocker'){
