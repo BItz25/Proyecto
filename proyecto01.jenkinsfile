@@ -19,11 +19,11 @@ pipeline {
                 genaralvars()
             }
         }
-        stage ("Get Code") {
+        /*stage ("Get Code") {
             steps {
                 git branch: "${env.GIT_BRANCH}", url: "${env.GIT_REPO}"
             }
-        }
+        }*/
         stage ("Get npm modules") {
             steps {
                 nodejs('nodejs12') {
