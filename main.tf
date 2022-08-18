@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "> 4.16"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = ">= 2.13.0"
+    }
   }
 
   required_version = ">= 1.2.0"
@@ -19,6 +23,26 @@ resource "aws_instance" "proyecto" {
 
   tags = {
     Name = "proyecto01"
+  }
+}
+
+
+provider "docker"{
+  host="unix:///var/run/docker.sock"
+}
+
+resource "docker_image" "juan" {
+  name         = "nginx:latest"
+  keep_locally = false
+}
+
+resource "docker_conytainer" "index"{
+  name= "index"
+  image = "josuercb/proyecto02"
+  
+  ports{
+    internal=80
+    external=84
   }
 }
 
