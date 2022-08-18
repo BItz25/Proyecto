@@ -22,7 +22,7 @@ resource "aws_instance" "proyecto" {
   key_name= "harrrrr"
 
   tags = {
-    Name = "proyecto01"
+    Name = "proyecto02"
   }
 }
 
