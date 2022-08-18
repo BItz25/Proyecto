@@ -31,13 +31,13 @@ pipeline {
                 }
             }
         }
-        stage ("Build project") {
+        /*stage ("Build project") {
             steps {
                 nodejs('nodejs12') {
                     sh "npm run build"
                 }
             }
-        }
+        }*/
         stage ("Create Dockerfile") {
             steps {
                 sh '''
