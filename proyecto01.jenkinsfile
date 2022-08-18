@@ -36,15 +36,7 @@ pipeline {
                 }
                 }
             } 
-            stage ("Create Dockerfile") {
-            steps {
-                sh '''
-                    cat <<EOT > Dockerfile
-                    FROM nginx:latest
-                    COPY public/ /usr/share/nginx/html/
-                '''
-            }
-        }
+           
         stage ("Build Image") {
             steps {
                 sh "docker build -t ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER} ."
