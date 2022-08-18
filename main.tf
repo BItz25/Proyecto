@@ -36,7 +36,7 @@ resource "docker_image" "juan" {
   keep_locally = false
 }
 
-resource "docker_conytainer" "index"{
+resource "docker_container" "index"{
   name= "index"
   image = "josuercb/proyecto02"
   
