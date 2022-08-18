@@ -53,7 +53,7 @@ pipeline {
         }
         stage('instalandoDocker'){
         steps{
-        ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: '	josue-ssh-proyecto', installation: 'ansible210', inventory: 'inventory.hosts', playbook: 'playbook-install-packages.yml'
+        ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-packages.yml'
         }
        }
     }
