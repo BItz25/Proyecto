@@ -46,9 +46,9 @@ pipeline {
                 sh "echo $PUBLIC_IP_EC2 > josue-inventory.hosts"
             }
         }     
-        stage('Wait 5 minutes') {
+        stage('Wait 1 minutes') {
             steps {
-                sleep time:5, unit: 'MINUTES'
+                sleep time:1, unit: 'MINUTES'
             }
         }
         stage('instalandoDocker'){
