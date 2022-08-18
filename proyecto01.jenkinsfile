@@ -29,7 +29,7 @@ pipeline {
                 sh 'terraform init'
             }
         }
-        stage('terraform apply') {
+        stage('terraform applys') {
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
                     sh "terraform apply --auto-approve"
