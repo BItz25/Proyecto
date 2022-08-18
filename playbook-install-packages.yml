@@ -21,10 +21,14 @@ hosts: all
         name: ['software-properties-common']
         state: latest
     - name: Execute a command instalar
-      shell: apt install apt-transport-https ca-certificates curl software-properties-common
+        shell: apt install apt-transport-https ca-certificates curl software-properties-common
     - name: Execute a command
-      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    - name: "Update packages"
+      apt:
+        update_cache: yes
     - name: "Install Docker"
       apt:
         name: ['docker-ce']
         state: latest
+     
