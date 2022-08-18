@@ -1,6 +1,6 @@
 def genaralvars () {
 
-    env.GIT_REPO = 'https://github.com/JosueRCB/josuelab01.git'
+    env.GIT_REPO = 'https://github.com/JosueRCB/Proyecto.git'
     env.GIT_BRANCH = 'main'
     env.DOCKER_REPO = 'josuercb'
     CONTAINER_PORT= '84'
