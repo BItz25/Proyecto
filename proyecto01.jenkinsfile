@@ -40,7 +40,7 @@ pipeline {
             stage ("Get npm modules") {
             steps {
                 nodejs('nodejs12') {
-                    sh "npm install -g --prefer-offline --no-audit"
+                    sh "npm install "
                 }
             }
         }
