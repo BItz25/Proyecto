@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "proyecto" {
-  ami           = "ami-830c94e3"
+  ami           = "ami-0d70546e43a941d70"
   instance_type = "t2.micro"
   security_groups= ["launch-wizard-1","default"]
   key_name= "josueproyecto"
