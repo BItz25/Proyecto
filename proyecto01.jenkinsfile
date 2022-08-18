@@ -10,7 +10,9 @@ def genaralvars () {
 
 pipeline {
     agent any
-    
+    tools {
+       terraform 'terraform-2'
+    }
     stages {
         stage ("Set Variables") {
             steps {
@@ -71,5 +73,22 @@ pipeline {
                 }
             }
         }
+        stage('terraform format check') {
+            steps{
+                sh 'terraform fmt'
+            }
+        }
+        stage('terraform Init') {
+            steps{
+                sh 'terraform init'
+            }
+        }
+        stage('terraform apply') {
+            steps{
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                    sh "terraform apply --auto-approve"
+                }
+                }
+            }
     }
 }
