@@ -19,20 +19,6 @@ pipeline {
                 genaralvars()
             }
         }
-        stage ("Verify If exist container") {
-            steps {
-                    script {
-                        if (fileExists('terraform.tfstate')) {
-                            withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-gonzafirma', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                                sh "terraform destroy --auto-approve"
-                            }
-                        }
-                        else {
-                            sh "echo no existe tfstate"
-                        }
-                }
-            }
-        }
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
