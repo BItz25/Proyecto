@@ -27,7 +27,7 @@ resource "aws_instance" "proyecto" {
 }
 output "instance_public_ip" {
   description = "Obtener la IP publica de mi instancia"
-  value = aws_instance.lab_server_01.public_ip  // aws_instance.$NOMBRE-RECURSO-TIPO-aws_instance$.public_ip
+  value = aws_instance.proyecto02.public_ip  // aws_instance.$NOMBRE-RECURSO-TIPO-aws_instance$.public_ip
 }
 
 
