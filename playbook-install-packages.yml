@@ -1,39 +1,15 @@
 - hosts: all
   tasks:
-    - name: "Update packages"
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-    - name: "Install apt-transport-https"
-      apt:
-        name: ['apt-transport-https']
-        state: latest
-    - name: "Install ca-certificatess"
-      apt:
-        name: ['ca-certificates']
-        state: latest
-    - name: "Install curl"
-      apt:
-        name: ['curl']
-        state: latest
-    - name: "Install software-properties-common"
-      apt:
-        name: ['software-properties-common']
-        state: latest
-    - name: Execute a command instalar
-      shell: apt install apt-transport-https ca-certificates curl software-properties-common
-    - name: Execute a command
+    - name: Execute a command apt update
+      shell: sudo apt update
+    - name: Execute a command apt install
+      shell: sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    - name: Execute a command -fsSL
       shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    - name: Execute a command repo
-      shell:  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    - name: "Update packages"
-      apt:
-        update_cache: yes
-    - name: "Install Docker"
-      apt:
-        name: ['docker-ce']
-        state: latest
-     
-     
- 
+    - name: Execute a command add-apt-repository
+      shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    - name: Execute a command apt update
+      shell: sudo apt update
+    - name: Execute a command apt-cache
+      shell: apt-cache policy docker-ce
 
