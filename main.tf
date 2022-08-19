@@ -39,12 +39,10 @@ output "instance_public_ip" {
 variable "reponame" {}
 variable "container_port" {}
 
-provider "docker" {}
-registry_auth {
-    username = "josuercb"
-    password = "Harvey001."
-  }
+provider "docker" {
+    host = "unix:///var/run/docker.sock"
 }
+
 
 resource "docker_image" "proyecto" {
   name         = "proyecto:latest"
