@@ -44,7 +44,7 @@ provider "docker" {
 }
 
 
-resource "docker_image" "proyecto" {
+resource "docker_image" "_proyecto" {
   name         = "proyecto:latest"
   keep_locally = true
 }
