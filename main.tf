@@ -41,7 +41,7 @@ variable "container_port" {}
 
 provider "docker" {}
 
-resource var.reponame "proyecto" {
+resource "docker_image" "josuercb/proyecto" {
   name         = "proyecto:latest"
   keep_locally = true
 }
