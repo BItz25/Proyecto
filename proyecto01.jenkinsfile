@@ -84,21 +84,8 @@ pipeline {
                 ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-docker.yml'
             }
         }
-       stage ("Get npm modules") {
-            steps {
-                nodejs('nodejs12') {
-                    sh "npm install "
-                }
-            }
-        }
-        stage ("Build project") {
-            steps {
-                nodejs('nodejs12') {
-                    sh "npm run build"
-                }
-            }
-        }
-        /*stage ("Create Dockerfile") {
+      
+        stage ("Create Dockerfile") {
             steps {
                 sh '''
                     cat <<EOT > Dockerfile
@@ -106,7 +93,20 @@ pipeline {
                     COPY public/ /usr/share/nginx/html/
                 '''
             }
-        }*/
+        }
+        stage ("Build Image") {
+            steps {
+                sh "docker build -t ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER} ."
+            }
+        }
+        stage ("Publish Image") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhubjosue', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                    sh "docker login -u $docker_user -p $docker_pass"
+                    sh "docker push ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
+                }
+            }
+        }
         
     }
 }
