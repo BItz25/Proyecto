@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.16"
     }
     docker = {
-      source  = "terraform-providers/docker"
+      source  = "kreuzwerker/docker"
       //version = "2.20.2"
     }
   }
