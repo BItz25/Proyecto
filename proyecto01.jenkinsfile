@@ -42,7 +42,7 @@ pipeline {
         }
         stage('terraform Init') {
             steps{
-                sh 'terraform init'
+                sh 'terraform init -upgrade'
             }
         }
         stage('terraform apply') {
