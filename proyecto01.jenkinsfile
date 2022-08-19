@@ -47,8 +47,8 @@ pipeline {
         }
         stage('terraform apply') {
             steps{
-                //withAWS(credentials: 'aws-gonzafirma', region: 'us-east-1') {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-gonzafirma', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                //withAWS(credentials: 'josue-aws-proyecto', region: 'us-east-1') {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
                     sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
                     sh "terraform apply --auto-approve"
                 }
