@@ -12,13 +12,13 @@ terraform {
 
 
 provider "aws" {
-  region  = "us-east-2"
+  region  = "us-west-2"
 }
 
 resource "aws_instance" "proyecto" {
-  ami           = "ami-02f3416038bdb17fb"
+  ami           = "ami-0d70546e43a941d70"
   instance_type = "t2.micro"
-  security_groups= ["jospro","default"]
+  security_groups= ["launch-wizard-1","default"]
   key_name= "josuepro"
 
   tags = {
