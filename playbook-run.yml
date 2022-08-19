@@ -1,4 +1,4 @@
 - hosts: 54.189.103.116
   tasks:
     - name: run images
-      shell: docker run -d -p "{{var_container_port}}":80 "{{var_docker_repo}}"/"{{var_job_name}:${var_build_number}}"
+      shell: docker run -d -p "{{var_container_port}}":80 "{{var_docker_repo}}"/"{{var_job_name}}":"{{var_build_number}}"
