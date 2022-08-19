@@ -16,10 +16,10 @@ provider "aws" {
 }
 
 resource "aws_instance" "proyecto" {
-  ami           = "ami-0d70546e43a941d70"
+  ami           = "ami-02f3416038bdb17fb"
   instance_type = "t2.micro"
-  security_groups= ["launch-wizard-1","default"]
-  key_name= "josueproyecto"
+  security_groups= ["jospro","default"]
+  key_name= "josuepro"
 
   tags = {
     Name = "proyecto02"
