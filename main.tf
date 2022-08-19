@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2.13.0"
+    }
   }
 
   required_version = ">= 1.2.0"
@@ -30,6 +34,26 @@ output "instance_public_ip" {
   value = aws_instance.proyecto.public_ip  // aws_instance.$NOMBRE-RECURSO-TIPO-aws_instance$.public_ip
 }
 
+
+
+variable "reponame" {}
+variable "container_port" {}
+
+provider "docker" {}
+
+resource "docker_image" "proyecto" {
+  name         = "proyecto:latest"
+  keep_locally = true
+}
+
+resource "docker_container" "proy" {
+  image = docker_image.proyecto.latest
+  name  = var.reponame
+  ports {
+    internal = 80
+    external = var.container_port
+  }
+}
 
 
   
