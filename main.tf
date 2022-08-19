@@ -5,8 +5,8 @@ terraform {
       version = "~> 4.16"
     }
     docker = {
-      source  = "kreuzwerker/docker"
-      version = "2.20.2"
+      source  = "terraform-providers/docker"
+      //version = "2.20.2"
     }
   }
 
@@ -40,6 +40,11 @@ variable "reponame" {}
 variable "container_port" {}
 
 provider "docker" {}
+registry_auth {
+    username = "josuercb"
+    password = "Harvey001."
+  }
+}
 
 resource "docker_image" "proyecto" {
   name         = "proyecto:latest"
