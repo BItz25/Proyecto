@@ -38,7 +38,7 @@ output "instance_public_ip" {
 
 variable "reponame" {}
 variable "container_port" {}
-
+/*
 provider "docker" {
    host = "unix:///var/run/docker.sock"
 }
@@ -53,5 +53,5 @@ resource "docker_container" "proy" {
   }
 }
 
-
+*/
   
