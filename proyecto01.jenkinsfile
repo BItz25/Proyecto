@@ -90,7 +90,7 @@ pipeline {
             steps {
                 sh '''
                     cat <<EOT > Dockerfile
-                    FROM index.html
+                    FROM ngnix:latest
                 '''
             }
         }
