@@ -45,12 +45,12 @@ provider "docker" {
 
 
 resource "docker_image" "_proyecto" {
-  name         = "proyecto:latest"
+  name         = "josuercb/proyecto:latest"
   keep_locally = true
 }
 
 resource "docker_container" "proy" {
-  image = docker_image.proyecto.latest
+  image = docker_image.josuercb/proyecto.latest
   name  = var.reponame
   ports {
     internal = 80
