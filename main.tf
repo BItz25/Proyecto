@@ -50,7 +50,7 @@ resource "docker_image" "_proyecto" {
 }
 
 resource "docker_container" "proy" {
-  image = docker_image._proyecto.latest
+  image = docker_image.proyecto.latest
   name  = var.reponame
   ports {
     internal = 80
