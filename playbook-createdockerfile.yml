@@ -11,10 +11,10 @@
               COPY public/ /usr/share/nginx/html/
               EOT
     - name:  Build Image
-      shell: docker build -t ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER} .
+      shell: docker build -t \"${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER} .\" 
     - name:  Publish Image
       shell: 
           cmd: |
-              docker login -u $docker_user -p $docker_pass
-              docker push ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}
+              docker login -u \"$docker_user -p $docker_pass\"
+              docker push \"${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}\"
        
