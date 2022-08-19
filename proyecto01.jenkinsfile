@@ -84,10 +84,10 @@ pipeline {
                 ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-docker.yml'
             }
         }
-       /*stage ("Get npm modules") {
+       stage ("Get npm modules") {
             steps {
                 nodejs('nodejs12') {
-                    sh "npm install -g --prefer-offline --no-audit"
+                    sh "npm install "
                 }
             }
         }
@@ -97,8 +97,8 @@ pipeline {
                     sh "npm run build"
                 }
             }
-        }*/
-        stage ("Create Dockerfile") {
+        }
+        /*stage ("Create Dockerfile") {
             steps {
                 sh '''
                     cat <<EOT > Dockerfile
@@ -106,7 +106,7 @@ pipeline {
                     COPY public/ /usr/share/nginx/html/
                 '''
             }
-        }
+        }*/
         
     }
 }
