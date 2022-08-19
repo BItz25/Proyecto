@@ -110,14 +110,14 @@ pipeline {
         stage('pull image') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-pull.yml'
+                sh "docker pull ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
                 }
             }
         }
         stage('run image') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-run.yml'
+                sh" docker run -d -p ${CONTAINER_PORT}:80 ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
                 }
             }
         }
