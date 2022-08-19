@@ -115,7 +115,7 @@ pipeline {
         stage('run image') {
             steps {
                 ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-run.yml'
-        
+        }
         }
     }
 }
