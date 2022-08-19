@@ -51,11 +51,22 @@ pipeline {
                 sleep time:1, unit: 'MINUTES'
             }
         }
-        stage('instalandoDocker'){
-        steps{
-             ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-packages.yml'
+       stage('Connect to Host and install Packages') {
+            steps {
+                ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-packages.yml'
+            }
         }
-       } 
+        stage('Connect to Host and execute a command') {
+            steps {
+                ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-execute-command-packages.yml'
+            }
+        }
+        stage('Connect to Host and install Docker') {
+            steps {
+                ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-docker.yml'
+            }
+        }
+
     }
 }
     
