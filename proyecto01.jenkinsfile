@@ -19,6 +19,21 @@ pipeline {
                 genaralvars()
             }
         }
+        stage ("Verify If exist container") {
+            steps {
+                    script {
+                        DOCKERID = sh (script: "docker ps -f publish=${CONTAINER_PORT} -q", returnStdout: true).trim()
+                        if  ( DOCKERID !="" ) {
+                            if (fileExists('terraform.tfstate')) {
+                                sh "terraform destroy  -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --target docker_container.nginx --auto-approve"
+                            }
+                            else {
+                                sh "docker stop ${DOCKERID}"
+                            }
+                        }
+                }
+            }
+        }
         
         stage('terraform format check') {
             steps{
@@ -32,10 +47,12 @@ pipeline {
         }
         stage('terraform apply') {
             steps{
-                //withAWS(credentials: 'aws-gonzafirma', region: 'us-east-1') {
+                {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                    sh "terraform apply --auto-approve"
+                   sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
+                   sh "terraform apply --auto-approve"
                 }
+                
                 script {
                     PUBLIC_IP_EC2 = sh (script: "terraform output instance_public_ip", returnStdout:true).trim()
                 }
@@ -90,20 +107,6 @@ pipeline {
                 '''
             }
         }
-        stage ("Verify If exist container") {
-            steps {
-                    script {
-                        DOCKERID = sh (script: "docker ps -f publish=${CONTAINER_PORT} -q", returnStdout: true).trim()
-                        if  ( DOCKERID !="" ) {
-                            if (fileExists('terraform.tfstate')) {
-                                sh "terraform destroy  -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --target docker_container.nginx --auto-approve"
-                            }
-                            else {
-                                sh "docker stop ${DOCKERID}"
-                            }
-                        }
-                }
-            }
-        }
+        
     }
 }
