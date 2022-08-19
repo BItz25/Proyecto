@@ -1,6 +1,4 @@
 - hosts: all
   tasks:
     - name: pullimage
-      shell:
-         cdm |
-            docker pull josuercb/proyecto:latest
+      shell:   docker pull ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}
