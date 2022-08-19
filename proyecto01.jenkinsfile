@@ -19,6 +19,7 @@ pipeline {
                 genaralvars()
             }
         }
+        
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
@@ -89,28 +90,17 @@ pipeline {
                 '''
             }
         }
-        stage ("Build Image") {
-            steps {
-                sh "docker build -t ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER} ."
-            }
-        }
-        stage ("Publish Image") {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhubjosue', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
-                    sh "docker login -u $docker_user -p $docker_pass"
-                    sh "docker push ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
-                }
-            }
-        }
-        stage ("Run Image") {
+        stage ("Verify If exist container") {
             steps {
                     script {
-                        DOCKERID = ""
                         DOCKERID = sh (script: "docker ps -f publish=${CONTAINER_PORT} -q", returnStdout: true).trim()
                         if  ( DOCKERID !="" ) {
-                            sh "docker stop ${DOCKERID} && docker run -d -p ${CONTAINER_PORT}:80 ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
-                        } else {
-                            sh "docker run -d -p ${CONTAINER_PORT}:80 ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}"
+                            if (fileExists('terraform.tfstate')) {
+                                sh "terraform destroy  -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --target docker_container.nginx --auto-approve"
+                            }
+                            else {
+                                sh "docker stop ${DOCKERID}"
+                            }
                         }
                 }
             }
