@@ -46,7 +46,7 @@ pipeline {
                 sh "echo $PUBLIC_IP_EC2 > josue-inventory.hosts"
             }
         }     
-        stage('Wait 1 minutes') {
+        stage('Wait 30 seconds') {
             steps {
                 sleep time:30, unit: 'SECONDS'
             }
