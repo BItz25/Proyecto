@@ -6,7 +6,7 @@ terraform {
     }
     docker = {
       source  = "kreuzwerker/docker"
-      //version = "2.20.2"
+      version = "2.20.2"
     }
   }
 
@@ -45,12 +45,12 @@ provider "docker" {
 
 
 resource "docker_image" "_proyecto" {
-  name         = "_proyecto:latest"
+  name         = "josuercb/proyecto:latest"
   keep_locally = true
 }
 
 resource "docker_container" "proy" {
-  image = docker_image._proyecto.latest
+  image = docker_image.josuercb/proyecto.latest
   name  = var.reponame
   ports {
     internal = 80
