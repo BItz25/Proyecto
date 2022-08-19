@@ -40,7 +40,7 @@ variable "reponame" {}
 variable "container_port" {}
 
 provider "docker" {
-    host = "unix:///var/run/docker.sock"
+   // host = "unix:///var/run/docker.sock"
 }
 
 
@@ -50,7 +50,7 @@ resource "docker_image" "_proyecto" {
 }
 
 resource "docker_container" "proy" {
-  image = docker_image.josuercb/proyecto.latest
+  image = docker_image._proyecto.latest
   name  = var.reponame
   ports {
     internal = 80
