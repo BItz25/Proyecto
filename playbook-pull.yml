@@ -1,4 +1,7 @@
 - hosts: all
   tasks:
     - name: pullimage
-      shell:   docker pull ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}
+      shell:  
+          cmd |
+               docker pull ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}
+   
