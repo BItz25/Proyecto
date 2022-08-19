@@ -55,7 +55,21 @@ pipeline {
         steps{
              ansiblePlaybook become: true, colorized: true, extras: '-v', disableHostKeyChecking: true, credentialsId: 'josue-ssh-proyecto', installation: 'ansible210', inventory: 'josue-inventory.hosts', playbook: 'playbook-install-packages.yml'
         }
-       }
+       } 
+       stage('Manual Approval to Destroy the Infra') {
+            steps{
+                input "Proceed with destroy the Infra?"
+            }
+        }
+        stage('Executing Terraform Destroy') {
+            steps{
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                sh "terraform destroy --auto-approve"
+            }
+            }
+        }
+    }
+}
     }
 }
 
