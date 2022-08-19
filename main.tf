@@ -12,7 +12,7 @@ terraform {
 
 
 provider "aws" {
-  region  = "us-eats-2"
+  region  = "us-east-2"
 }
 
 resource "aws_instance" "proyecto" {
