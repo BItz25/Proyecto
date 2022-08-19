@@ -40,12 +40,12 @@ variable "reponame" {}
 variable "container_port" {}
 
 provider "docker" {
-   // host = "unix:///var/run/docker.sock"
+   host = "unix:///var/run/docker.sock"
 }
 
 
 resource "docker_image" "_proyecto" {
-  name         = "josuercb/proyecto:latest"
+  name         = "_proyecto:latest"
   keep_locally = true
 }
 
