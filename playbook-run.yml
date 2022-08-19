@@ -1,6 +1,4 @@
-- hosts: all
+- hosts: 54.189.103.116
   tasks:
     - name: run images
-      shell: 
-         cmd |
-             docker run -d -p ${CONTAINER_PORT}:80 ${env.DOCKER_REPO}/${JOB_BASE_NAME}:${BUILD_NUMBER}
+      shell: docker run -d -p "{{CONTAINER_PORT}}":80 "{{env.DOCKER_REPO}}"/"{{JOB_BASE_NAME}:${BUILD_NUMBER}}"
