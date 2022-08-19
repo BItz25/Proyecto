@@ -48,7 +48,7 @@ pipeline {
         }     
         stage('Wait 1 minutes') {
             steps {
-                sleep time:1, unit: 'MINUTES'
+                sleep time:30, unit: 'SECONDS'
             }
         }
        stage('Connect to Host and install Packages') {
