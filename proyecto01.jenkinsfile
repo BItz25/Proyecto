@@ -47,18 +47,18 @@ pipeline {
         }
         stage('terraform apply') {
             steps{
-                {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'josue-aws-proyecto', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                   sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
-                   sh "terraform apply --auto-approve"
+                //withAWS(credentials: 'aws-gonzafirma', region: 'us-east-1') {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-gonzafirma', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                    sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
+                    sh "terraform apply --auto-approve"
                 }
-                
                 script {
                     PUBLIC_IP_EC2 = sh (script: "terraform output instance_public_ip", returnStdout:true).trim()
                 }
                 echo "${PUBLIC_IP_EC2}"
             }
         }
+
         stage('Change inventory content') {
             steps{
                 sh "echo $PUBLIC_IP_EC2 > josue-inventory.hosts"
