@@ -4,10 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
-    /*docker = {
+    docker = {
       source  = "kreuzwerker/docker"
       version = "2.20.2"
-    }*/
+    }
   }
 
   required_version = ">= 1.2.0"
@@ -35,7 +35,7 @@ output "instance_public_ip" {
 }
 
 
-/*
+
 variable "reponame" {}
 variable "container_port" {}
 
@@ -54,6 +54,6 @@ resource "docker_container" "proy" {
     external = var.container_port
   }
 }
-*/
+
 
   
